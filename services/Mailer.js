@@ -23,7 +23,7 @@ Emailer.send = async function(data){
         to: to, 
         from: from, 
         subject: subject,
-        text: 'and easy to do anywhere, even with Node.js',
+        text: 'O2O',
         html: html,
     }
     return await client.sendMail(msg);
