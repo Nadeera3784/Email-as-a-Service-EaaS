@@ -9,7 +9,12 @@ const {AuthenticationTokenGenerate}      = require('../services/Authentication')
 const AccountController = {
 
     async list(request, response, next){
-        Account.service.list().then(function(documents){
+      const email = request.query.email;
+      let Query_builder = {};
+      if (email != undefined && email != null) {
+        Query_builder.email = email;
+      }
+      Account.service.list(Query_builder).then(function(documents){
           response.status(200).json({
             type : AppConstants.RESPONSE_SUCCESS,
             message:  'Account has been fetched successfully',
