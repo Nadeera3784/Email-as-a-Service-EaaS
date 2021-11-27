@@ -22,6 +22,10 @@ Template.delete = async function(id){
     return await Template_Model.findOneAndRemove({_id: id});
 }
 
+Template.deleteAll = async function(id){
+    return await Template_Model.deleteMany({});
+}
+
 Template.findTemplateByName = async function(name){
   return await Template_Model.findTemplateByName(name);
 }

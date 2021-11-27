@@ -22,6 +22,10 @@ Account.delete = async function(id){
     return await Account_Model.findOneAndRemove({_id: id});
 }
 
+Account.deleteAll = async function(id){
+    return await Account_Model.deleteMany({});
+}
+
 Account.findAccountByEmail = async function(email){
     return await Account_Model.findAccountByEmail(email);
 }
