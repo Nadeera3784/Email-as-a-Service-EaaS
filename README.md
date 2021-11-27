@@ -31,3 +31,9 @@ npm run dev
 ```sh
 mydomain.com/status
 ```
+
+## Run Test 
+
+```sh
+npm run test
+```
