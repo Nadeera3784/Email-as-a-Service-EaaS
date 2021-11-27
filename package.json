@@ -9,7 +9,8 @@
   },
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "test": "mocha --timeout 10000"
   },
   "keywords": [
     "expressjs"
@@ -37,5 +38,10 @@
     "morgan": "^1.10.0",
     "nodemailer": "^6.7.2",
     "nodemailer-sendgrid": "^1.0.3"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^2.0.1",
+    "mocha": "^2.4.5"
   }
 }
