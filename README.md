@@ -6,7 +6,7 @@
 O2O CASS requires 
 Node.j v14+  (https://nodejs.org/) 
 Redis (https://redis.io/download)
-
+MongoDB (https://www.mongodb.com/)
 
 Install the dependencies and devDependencies
 
