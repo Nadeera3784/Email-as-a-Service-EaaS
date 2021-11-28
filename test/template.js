@@ -10,6 +10,8 @@ describe('Templates', () => {
     beforeEach((done) => {
         Template.service.deleteAll().then(function (document) {
             done();
+        }).catch(function(error){
+            done(error);
         });
     });
 
@@ -139,6 +141,8 @@ describe('Templates', () => {
                         res.body.data[0].should.have.property('_id').eql(document.id);
                         done();
                     });
+            }).catch(function(error){
+                done(error);
             });
 
         });
@@ -178,6 +182,8 @@ describe('Templates', () => {
                         res.body.should.have.property('type').eql('success');
                         done();
                     });
+            }).catch(function(error){
+                done(error);
             });
 
         });
@@ -238,6 +244,8 @@ describe('Templates', () => {
                         res.body.data.should.have.property('type').eql('o2o-event-x');
                         done();
                     });
+            }).catch(function(error){
+                done(error);
             });
         });
     });

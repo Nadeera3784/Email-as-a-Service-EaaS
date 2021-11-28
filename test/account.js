@@ -86,6 +86,8 @@ describe('Account', () => {
                         res.body.should.have.property('message').eql('Something went wrong, please try again later');
                         done();
                     });
+            }).catch(function(error){
+                done(error);
             });
         });
     });  
@@ -111,6 +113,8 @@ describe('Account', () => {
                         res.body.data[0].should.have.property('_id').eql(document.id);
                         done();
                     });
+            }).catch(function(error){
+                done(error);
             });
 
         });
@@ -135,12 +139,14 @@ describe('Account', () => {
                         res.body.should.have.property('type').eql('success');
                         done();
                     });
+            }).catch(function(error){
+                done(error);
             });
 
         });
     });
 
-    /*
+   /*
     * Test the /PUT/:id route
    */
     describe('/PUT/:id accounts', () => {
@@ -167,6 +173,8 @@ describe('Account', () => {
                         res.body.data.should.have.property('email').eql('johndoexx@gmail.com');
                         done();
                     });
+            }).catch(function(error){
+               done(error);
             });
         });
     });
