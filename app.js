@@ -50,6 +50,10 @@ App.use((request, response, next) => {
 
 App.use(limiter);
 
+App.get('/health', function (request, response) {
+  return response.send(200);
+});
+
 App.use('/api/v1/', app_route);
 
 App.use(statusMonitor);
