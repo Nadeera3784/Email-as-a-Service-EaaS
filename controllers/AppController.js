@@ -66,6 +66,15 @@ const AppController = {
             });
             await DeliverabilityInsights.service.create(Query_builder);
           }); */
+          let Query_builder            = {};
+          Query_builder.account_id     = account._id;
+          Query_builder.recipient      = to;
+          Mailer.send(mailData).then(function(mailresponse){
+            Query_builder.status   = 'sent';
+          }).then(function(error){
+            Query_builder.status   = 'failed';
+          });
+          await DeliverabilityInsights.service.create(Query_builder);
           response.status(200).json({
             type : AppConstants.RESPONSE_SUCCESS,
             message:  'Email has been sent successfully',
