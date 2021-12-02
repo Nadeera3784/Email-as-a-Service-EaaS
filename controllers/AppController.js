@@ -9,7 +9,7 @@ const DeliverabilityInsights             = require('../services/DeliverabilityIn
 const AccountTemplate                    = require('../services/AccountTemplate');
 const {AuthenticationTokenGenerate, AuthenticationParseUser}      = require('../services/Authentication');
 
-const sendMailQueue = new bullQueue('sendMailQueue', { redis: { port: config_cache.cache.redis_port, host: config_cache.cache.redis_host}});
+//const sendMailQueue = new bullQueue('sendMailQueue', { redis: { port: config_cache.cache.redis_port, host: config_cache.cache.redis_host}});
 
 
 const AppController = {
@@ -54,7 +54,7 @@ const AppController = {
             subject : subject_locale,
             html : document_content_locale
           };
-          sendMailQueue.add(mailData);   
+       /*    sendMailQueue.add(mailData);   
           sendMailQueue.process(async function (job) {
             let Query_builder            = {};
             Query_builder.account_id     = account._id;
@@ -65,7 +65,7 @@ const AppController = {
               Query_builder.status   = 'failed';
             });
             await DeliverabilityInsights.service.create(Query_builder);
-          });
+          }); */
           response.status(200).json({
             type : AppConstants.RESPONSE_SUCCESS,
             message:  'Email has been sent successfully',
