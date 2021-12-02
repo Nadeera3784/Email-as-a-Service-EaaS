@@ -54,13 +54,23 @@ App.get('/health', function (request, response) {
   return response.send(200);
 });
 
+App.get('/', (request, response, next) => {
+  return response.status(200).json({
+         type : 'success',
+         message:  {
+            name    : "O2O Caas API",
+             version : 'V.1.0.0'
+         }
+  });
+});
+
 App.use('/api/v1/', app_route);
 
 App.use(statusMonitor);
 
 App.disable('x-powered-by');
 
-App.set('port', process.env.APP_PORT || 3030);
+App.set('port', process.env.APP_PORT || 8080);
 
 http.createServer(App).listen(App.get('port'), function () {
 	console.log("Server listening on port " + App.get('port'));
