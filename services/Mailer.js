@@ -30,10 +30,12 @@ Emailer.send = async function(data){
             let mailerConfig = {    
                 host: host,  
                 //secureConnection: true,
+                debug: true,
                 tls: {
-                    rejectUnauthorized: false
+                    rejectUnauthorized: false,
+                    ciphers:'SSLv3'
                 },
-                secure: true, 
+                secure: false, 
                 port: port,
                 auth: {
                     user: username,
