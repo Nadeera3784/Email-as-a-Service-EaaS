@@ -3,7 +3,7 @@ var mongoose  = require('mongoose');
 const TestController = {
 
     async index(request, response, next){
-        mongoose.connect(uri, {useNewUrlParser: true, ssl: true, sslValidate: false, sslCA: `rds-combined-ca-bundle.pem`}).then(function(res){
+        mongoose.connect("mongodb://nadeeradocumentdb:na998743deer837483Jlkrsd@o2o-caas-2021-12-06-06-47-58.cluster-capzd9fgxyee.ap-southeast-1.docdb.amazonaws.com:27017/o2o-caas?tls=true&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false", {useNewUrlParser: true, ssl: true, sslValidate: false, sslCA: `rds-combined-ca-bundle.pem`}).then(function(res){
             response.status(200).json({
                 type : 'success',
                 message:  'Account has been updated successfully',
