@@ -2,7 +2,7 @@ const express     = require('express');
 const router      = express.Router();
 const {check}     = require('express-validator');
 
-const { AppController , AccountController, TemplateController} = require('../controllers');
+const { AppController , AccountController, TemplateController, TestController} = require('../controllers');
 const Account       = require('../services/Account');
 const Template      = require('../services/Template');
 const {AuthenticationGuard}      = require('../services/Authentication');
@@ -126,6 +126,16 @@ router.post('/send-emails', AuthenticationGuard,
 ],
 AppController.sendEmails);
 
+router.get('/me', AuthenticationGuard, AppController.getAccountDetails);
+
+router.put('/me', AuthenticationGuard, 
+[  
+  check('email_service')
+  .not().isEmpty()
+  .withMessage("Email service is required")
+],
+AppController.updateAccountDetails);
+
 router.get('/me/templates', AuthenticationGuard, AppController.accountTemplates);
 
 router.put('/me/templates/:id', AuthenticationGuard, 
@@ -160,5 +170,6 @@ router.post('/refresh-token',
 
 router.post('/login', AppController.token);
 
+router.get('/test', TestController.index);
 
 module.exports = router;

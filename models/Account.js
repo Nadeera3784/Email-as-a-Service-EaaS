@@ -16,6 +16,10 @@ let DocumentSchema = mongoose.Schema({
 	refresh_token : {
 		type : String
     },
+	email_service : {
+		type : String,
+		default: 'sendgrid'
+	},
 	created_at: {
 		type: Date,
 		default: Date.now,

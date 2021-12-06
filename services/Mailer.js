@@ -13,12 +13,46 @@ const ses = new AWS.SES({
 
 const SgClient = nodemailer.createTransport(nodemailerSendgrid({apiKey: config_app.app.sendgrid_key}));
 const SesClient = nodemailer.createTransport({SES: ses});
-
 const Emailer = module.exports;
 
 Emailer.send = async function(data){
-    const {from, to, subject, html} = data;
-    let client = (config_app.app.default_email_client === 'sendgrid') ? SgClient : SesClient;
+    const {from, to, subject, html, email_client, smtp} = data;
+    let client = null;
+    switch (email_client) {
+        case 'sendgrid':
+            client = SgClient;
+            break;
+        case 'ses':
+            client = SesClient;
+            break;
+        case 'custom':
+            const {host, port, username, password} = smtp;
+            let mailerConfig = {    
+                host: host,  
+                //secureConnection: true,
+                tls: {
+                    rejectUnauthorized: false
+                },
+                secure: true, 
+                port: port,
+                auth: {
+                    user: username,
+                    pass: password
+                }
+            };
+            client = nodemailer.createTransport(mailerConfig);
+            break;
+
+    }
+
+    client.verify(function(error, success) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("Server is ready to take our messages");
+        }
+    });
+
     const msg = {
         to: to, 
         from: from, 

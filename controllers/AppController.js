@@ -7,6 +7,7 @@ const Mailer                             = require('../services/Mailer');
 const Account                            = require('../services/Account');
 const DeliverabilityInsights             = require('../services/DeliverabilityInsights');
 const AccountTemplate                    = require('../services/AccountTemplate');
+const CustomSmtp                         = require('../services/CustomSmtp');
 const {AuthenticationTokenGenerate, AuthenticationParseUser}      = require('../services/Authentication');
 
 //const sendMailQueue = new bullQueue('sendMailQueue', { redis: { port: config_cache.cache.redis_port, host: config_cache.cache.redis_host}});
@@ -48,12 +49,26 @@ const AppController = {
             delay: 6000, 
             attempts: 2
           };
-          const mailData = {
+          let mailData = {
             from: from,
             to : to,
             subject : subject_locale,
-            html : document_content_locale
+            html : document_content_locale,
+            email_client : account.email_service,
+            smtp : null
           };
+
+          if(account.email_service === "custom"){
+            const smtp = await CustomSmtp.service.view({account_id : account._id});
+            mailData.smtp =  {
+              hos      : smtp.host,
+              port     : smtp.port,
+              username : smtp.username,
+              password : smtp.password
+            }
+          }
+
+          console.log(mailData);
        /*    sendMailQueue.add(mailData);   
           sendMailQueue.process(async function (job) {
             let Query_builder            = {};
@@ -194,6 +209,66 @@ const AppController = {
         });
         return;
       });
+    },
+
+    async getAccountDetails(request, response, next){
+      const {id} = request.user;
+      const account = await Account.service.view({_id: id});
+      const smtp = await CustomSmtp.service.view({account_id : id});
+      return response.status(200).json({
+        type : AppConstants.RESPONSE_SUCCESS,
+        message:  'Account details has been fetched successfully',
+        data:  { 
+          account : account,
+          smtp : smtp
+        }
+      }); 
+    },
+
+    async updateAccountDetails (request, response, next){
+      const errors = validationResult(request);
+      if (!errors.isEmpty()) {
+          response.status(422).json({
+            type : AppConstants.RESPONSE_ERROR,
+            message:  'Something went wrong, please try again later',
+            data:  errors.array()
+          });
+          return;
+      }else{
+        const {email_service, host, port, username, password} = request.body;
+        const {id} = request.user;
+        let Query_builder        = {};
+        Query_builder.email_service      = email_service;
+        Account.service.update(id, Query_builder).then(async function(document){
+          if(email_service === "custom"){
+            let Query_builder            = {};
+            Query_builder.host           = host;
+            Query_builder.port           = port;
+            Query_builder.username       = username;
+            Query_builder.password       = password;
+            const smtp = await CustomSmtp.service.view({account_id : id});
+            if(smtp){
+              await CustomSmtp.service.update(id, Query_builder);
+            }else{
+              Query_builder.account_id   = id;
+              await CustomSmtp.service.create(Query_builder);
+            }
+          }
+          response.status(200).json({
+            type : AppConstants.RESPONSE_SUCCESS,
+            message:  'Account has been updated successfully',
+            data:  document
+          });
+          return;
+        }).catch(function(error){
+          response.status(400).json({
+            type : AppConstants.RESPONSE_ERROR,
+            message:  'Something went wrong, please try again later',
+            data: error
+          });
+          return;
+        });
+      }
     }
     
 
