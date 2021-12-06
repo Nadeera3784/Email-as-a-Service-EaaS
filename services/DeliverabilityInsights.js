@@ -22,6 +22,11 @@ DeliverabilityInsights.delete = async function(id){
     return await DeliverabilityInsights_Model.findOneAndRemove({_id: id});
 }
 
+DeliverabilityInsights.deleteAll = async function(id){
+    return await DeliverabilityInsights_Model.deleteMany({});
+}
+
+
 DeliverabilityInsights.findAccountByEmail = async function(email){
     return await DeliverabilityInsights_Model.findAccountByEmail(email);
 }

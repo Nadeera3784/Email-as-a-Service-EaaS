@@ -267,6 +267,18 @@ const AppController = {
           return;
         });
       }
+    },
+
+    async resetDatabase (request, response, next){
+      await Account.service.deleteAll();
+      await AccountTemplate.service.deleteAll();
+      await CustomSmtp.service.deleteAll();
+      await DeliverabilityInsights.service.deleteAll();
+      return response.status(200).json({
+        type : AppConstants.RESPONSE_SUCCESS,
+        message:  'Database has been reset successfully',
+        data:  null
+      }); 
     }
     
 
