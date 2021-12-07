@@ -1,11 +1,14 @@
 const mongoose   = require('mongoose');
+const fs = require('fs');
 
 const config_app = require('../config/app.js');
 
 const databaseInitializer = async function (uri) {
+    
     if (!mongoose.connection.readyState) {
         await mongoose.connect(uri, {
-            tlsCAFile: `rds-combined-ca-bundle.pem`
+            //tlsCAFile: `rds-combined-ca-bundle.pem`,
+            sslCA: [fs.readFileSync("rds-combined-ca-bundle.pem")]
         });
      }
 
