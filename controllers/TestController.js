@@ -6,21 +6,16 @@ const TestController = {
     async index(request, response, next) {
 
         if (!mongoose.connection.readyState) {
-            await mongoose.connect(
-                db_uri,
-                {
-                    tlsCAFile: `rds-combined-ca-bundle.pem`,
-                },
-                function (err, client) {
-                    if (err) {
-                        console.log(err);
-                        response.status(400).json({
-                            type: 'error',
-                            message: 'Something went wrong, please try again later',
-                            data: error
-                        });
-                    }
-                },
+            await mongoose.connect(db_uri,{tlsCAFile: `rds-combined-ca-bundle.pem`}, function (err, client) {
+                if (err) {
+                    console.log(err);
+                    response.status(400).json({
+                        type: 'error',
+                        message: 'Something went wrong, please try again later',
+                        data: error
+                    });
+                }
+            });
         }
     },
 }
