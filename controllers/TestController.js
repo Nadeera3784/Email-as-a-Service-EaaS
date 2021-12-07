@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+const {AccountTemplate_Model} = require('../models');
 
 const db_uri = "mongodb://nadeeradocumentdb:na998743deer837483jlkrsd@o2o-caas-db.cluster-capzd9fgxyee.ap-southeast-1.docdb.amazonaws.com:27017/o2o-caas?tls=true&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false";
 const TestController = {
@@ -17,10 +18,13 @@ const TestController = {
                 }
             });
         }
+
+        const am = await AccountTemplate_Model.create({email : 'john doe', type : 'type_01', email_service : 'ses'});
         
         response.status(200).json({
             type: 'success',
-            message: 'connected'
+            message: 'connected',
+            data : am
         });
 
     },
