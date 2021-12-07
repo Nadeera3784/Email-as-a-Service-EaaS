@@ -28,7 +28,7 @@ const TestController = {
 
         MongoClient.connect(db_uri,{tlsCAFile: `rds-combined-ca-bundle.pem`},function(err, client) {
             if(err){
-                client.close();
+                //client.close();
                 return response.status(400).json({
                     type: 'error',
                     message: 'Something went wrong, please try again later',
@@ -58,14 +58,14 @@ const TestController = {
                   default_date:defaultDate
             };
             activityCollection.insertOne(newActivity).then(result => {
-                    client.close()
+                    //client.close()
                 return response.status(200).json({
                     type: 'success',
                     message: 'connected',
                     data: result
                 });
             }).catch(err => {
-                client.close()
+                //client.close()
 
                 return response.status(400).json({
                     type: 'error',
