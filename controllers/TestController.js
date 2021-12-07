@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-const {mongodbInitializer} = require('../services/Database');
 const {Account_Model} = require('../models');
 
 const db_uri = "mongodb://nadeeradocumentdb:na998743deer837483jlkrsd@o2o-caas-db.cluster-capzd9fgxyee.ap-southeast-1.docdb.amazonaws.com:27017/o2o-caas?tls=true&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false";
