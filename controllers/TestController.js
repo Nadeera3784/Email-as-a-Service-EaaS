@@ -5,24 +5,24 @@ const TestController = {
 
     async index(request, response, next) {
 
-        //if (!mongoose.connection.readyState) {
+        if (!mongoose.connection.readyState) {
             await mongoose.connect(db_uri,{tlsCAFile: `rds-combined-ca-bundle.pem`}, function (err, client) {
                 if (err) {
-                    console.log(err);
+                    console.log('debug error', err);
                     response.status(400).json({
                         type: 'error',
                         message: 'Something went wrong, please try again later',
                         data: error
                     });
                 }
-
+                console.log('debug client', client);
                 return response.status(200).json({
                     type: 'success',
                     message: 'connected',
                     data: client
                 });
             });
-        //} 
+        } 
 
     },
 }
