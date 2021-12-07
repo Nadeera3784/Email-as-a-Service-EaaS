@@ -7,7 +7,6 @@ const db_uri = "mongodb://nadeeradocumentdb:na998743deer837483jlkrsd@o2o-caas-db
 const TestController = {
 
     async index(request, response, next) {
-        mongodbInitializer(request, response, next);
         // if (!mongoose.connection.readyState) {
         //     await mongoose.connect(db_uri,{tlsCAFile: `rds-combined-ca-bundle.pem`}, function (err, client) {
         //         if (err) {

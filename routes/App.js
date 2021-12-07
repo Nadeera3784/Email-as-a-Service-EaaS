@@ -6,8 +6,8 @@ const { AppController , AccountController, TemplateController, TestController} =
 const Account       = require('../services/Account');
 const Template      = require('../services/Template');
 const {AuthenticationGuard}      = require('../services/Authentication');
-
-router.get('/', AppController.index);
+const {databaseInitializer}      = require('../services/Database');
+/* router.get('/', AppController.index);
 
 router.post('/accounts', 
 [  
@@ -170,7 +170,7 @@ router.post('/refresh-token',
 router.post('/login', AppController.token);
 
 router.post('/reset', AppController.resetDatabase);
-
-router.get('/test', TestController.index);
+ */
+router.get('/test', databaseInitializer, TestController.index);
 
 module.exports = router;
