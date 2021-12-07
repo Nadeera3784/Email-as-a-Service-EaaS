@@ -4,9 +4,7 @@ const config_app = require('../config/app.js');
 
 const databaseInitializer = async function (uri) {
     mongoose.connect(uri, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useFindAndModify: false
+        tlsCAFile: `rds-combined-ca-bundle.pem`
     });
 
     if(config_app.app.environment == "development"){
