@@ -15,6 +15,12 @@ const TestController = {
                         data: error
                     });
                 }
+
+                return response.status(200).json({
+                    type: 'success',
+                    message: 'connected',
+                    data: client
+                });
             });
         }
     },
