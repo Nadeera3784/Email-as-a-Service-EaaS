@@ -57,7 +57,8 @@ const TestController = {
                   created_at:date,
                   default_date:defaultDate
             };
-            activityCollection.insertOne(newActivity).then(result => {
+            activityCollection.find({}).toArray().then(result => {
+            //sactivityCollection.insertOne(newActivity).then(result => {
                     //client.close()
                 return response.status(200).json({
                     type: 'success',
