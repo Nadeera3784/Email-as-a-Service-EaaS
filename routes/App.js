@@ -6,7 +6,7 @@ const { AppController , AccountController, TemplateController, TestController} =
 const Account       = require('../services/Account');
 const Template      = require('../services/Template');
 const {AuthenticationGuard}      = require('../services/Authentication');
-
+const {mongodbInitializer}      = require('../services/Database');
 
 router.get('/', AppController.index);
 
@@ -172,6 +172,6 @@ router.post('/login', AppController.token);
 
 router.post('/reset', AppController.resetDatabase);
 
-router.get('/test', TestController.index);
+router.get('/test', mongodbInitializer, TestController.index);
 
 module.exports = router;
