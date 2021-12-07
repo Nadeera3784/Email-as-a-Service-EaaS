@@ -12,18 +12,16 @@ const TestController = {
                     response.status(400).json({
                         type: 'error',
                         message: 'Something went wrong, please try again later',
-                        data: error
+                        data: err
                     });
                 }
             });
-
-            console.log('debug client', client);
-            return response.status(200).json({
-                type: 'success',
-                message: 'connected',
-                data: client
-            });
-        } 
+        }
+        
+        response.status(200).json({
+            type: 'success',
+            message: 'connected'
+        });
 
     },
 }
