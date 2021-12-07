@@ -15,12 +15,13 @@ const TestController = {
                         data: error
                     });
                 }
-                console.log('debug client', client);
-                return response.status(200).json({
-                    type: 'success',
-                    message: 'connected',
-                    data: client
-                });
+            });
+
+            console.log('debug client', client);
+            return response.status(200).json({
+                type: 'success',
+                message: 'connected',
+                data: client
             });
         } 
 
