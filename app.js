@@ -40,7 +40,7 @@ App.use(bodyParser.urlencoded({
 
 App.use(cors());
 
-//databaseInitializer(config_database.database.hostname);
+databaseInitializer(config_database.database.hostname);
 
 App.use(express.static(path.join(dir_base, 'public')));
 
