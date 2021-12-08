@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 const {Account_Model} = require('../models');
 
-const db_uri = "mongodb://nadeeradocumentdb:L3y~6^*5)EW4Ce$c@o2o-caas-db-public.cluster-capzd9fgxyee.ap-southeast-1.docdb.amazonaws.com:27017/o2o-caas?tls=true&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false&authSource=admin";
+const db_uri = "mongodb://nadeeradocumentdb:L3y~6^*5)EW4Ce$c@o2o-caas-db-public.cluster-capzd9fgxyee.ap-southeast-1.docdb.amazonaws.com:27017/o2o-caas?tls=true&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false";
 
 const TestController = {
 
