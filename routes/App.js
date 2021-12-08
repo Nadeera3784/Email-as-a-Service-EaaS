@@ -2,13 +2,13 @@ const express     = require('express');
 const router      = express.Router();
 const {check}     = require('express-validator');
 
-const { AppController , AccountController, TemplateController, TestController} = require('../controllers');
+const { AppController , AccountController, TemplateController} = require('../controllers');
 const Account       = require('../services/Account');
 const Template      = require('../services/Template');
 const {AuthenticationGuard}      = require('../services/Authentication');
 
 router.get('/', AppController.index);
-/*
+
 router.post('/accounts', 
 [  
     check('email')
@@ -170,7 +170,5 @@ router.post('/refresh-token',
 router.post('/login', AppController.token);
 
 router.post('/reset', AppController.resetDatabase);
- */
-router.get('/test', TestController.index);
-
+ 
 module.exports = router;

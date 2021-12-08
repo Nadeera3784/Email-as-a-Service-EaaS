@@ -1,5 +1,4 @@
 const http       = require("http");
-const path       = require("path");
 const express    = require("express");
 const bodyParser = require("body-parser");
 const logger     = require('morgan');
@@ -17,8 +16,6 @@ const {app_route}    = require('./routes');
 
 
 var App = express();
-
-let dir_base = __dirname;
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -41,8 +38,6 @@ App.use(bodyParser.urlencoded({
 App.use(cors());
 
 databaseInitializer(config_database.database.hostname);
-
-App.use(express.static(path.join(dir_base, 'public')));
 
 App.use((request, response, next) => {
     response.setHeader('Cache-Control', 'no-cache, no-store');
