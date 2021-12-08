@@ -19,12 +19,12 @@ const TestController = {
             });
         }
 
-        //const am = await Account_Model.create({email : 'john doe', type : 'type_01', email_service : 'ses'});
+        const am = await Account_Model.create({email : 'john doe', type : 'type_01', email_service : 'ses'});
         
         response.status(200).json({
             type: 'success',
             message: 'connected',
-            //data : am
+            data : am
         });
 
     },
