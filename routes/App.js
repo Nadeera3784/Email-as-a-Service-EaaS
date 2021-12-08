@@ -7,6 +7,7 @@ const Account       = require('../services/Account');
 const Template      = require('../services/Template');
 const {AuthenticationGuard}      = require('../services/Authentication');
 const {mongodbInitializer}      = require('../services/Database');
+
 router.get('/', AppController.index);
 /*
 router.post('/accounts', 

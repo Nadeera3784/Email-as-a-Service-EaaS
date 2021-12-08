@@ -41,6 +41,8 @@ const mongodbInitializer = async (request, response, next) => {
             }
         });
     }
+
+    next();
 };
 
 module.exports = {
