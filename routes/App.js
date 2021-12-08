@@ -172,6 +172,6 @@ router.post('/login', AppController.token);
 
 router.post('/reset', AppController.resetDatabase);
  */
-router.get('/test', TestController.index);
+router.get('/test', mongodbInitializer, TestController.index);
 
 module.exports = router;

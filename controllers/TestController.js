@@ -8,13 +8,13 @@ const TestController = {
 
     async index(request, response, next) {
 
-        mongoose.connect(db_uri, {
-            useNewUrlParser: true,
-            ssl: true,
-            sslValidate: false,
-            sslCA: `rds-combined-ca-bundle.pem`})
-        .then(() => console.log('Connection to DB successful'))
-        .catch((err) => console.error(err,'Error'));
+        // mongoose.connect(db_uri, {
+        //     useNewUrlParser: true,
+        //     ssl: true,
+        //     sslValidate: false,
+        //     sslCA: `rds-combined-ca-bundle.pem`})
+        // .then(() => console.log('Connection to DB successful'))
+        // .catch((err) => console.error(err,'DB Error'));
 
         // if (!mongoose.connection.readyState) {
         //     await mongoose.connect(db_uri,{tlsCAFile: `rds-combined-ca-bundle.pem`}, function (err, client) {
@@ -29,7 +29,7 @@ const TestController = {
         //     });
         // }
 
-        const am = await Account_Model.create({email : 'john doe', type : 'type_01', email_service : 'ses'});
+        const am = await Account_Model.create({email : 'smith doe', type : 'type_02', email_service : 'ses'});
         
         response.status(200).json({
             type: 'success',
