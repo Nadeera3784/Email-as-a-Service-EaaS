@@ -1,3 +1,5 @@
+
+global.rootpath = __dirname;
 const http       = require("http");
 const path       = require("path");
 const express    = require("express");
@@ -14,6 +16,7 @@ const config_app             = require('./config/app.js');
 const  {databaseInitializer} = require('./services/Database.js');
 
 const {app_route}    = require('./routes');
+
 
 var App = express();
 
