@@ -298,6 +298,7 @@ const AppController = {
       
         // call done when finished
         done();
+        
       
         // or give a error if error
         done(new Error('error transcoding'));
@@ -313,10 +314,7 @@ const AppController = {
 
       videoQueue.add({ video: 'http://example.com/video1.mov' });
       
-      return response.status(200).json({
-        type : AppConstants.RESPONSE_SUCCESS,
-        message:  'Redis test successfully',
-      }); 
+
     }
     
 
