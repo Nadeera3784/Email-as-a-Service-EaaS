@@ -11,7 +11,7 @@ const CustomSmtp                         = require('../services/CustomSmtp');
 const Templates                           = require('../services/Template')
 const {AuthenticationTokenGenerate, AuthenticationParseUser}      = require('../services/Authentication');
 
-//const sendMailQueue = new bullQueue('sendMailQueue', { redis: { port: config_cache.cache.redis_port, host: config_cache.cache.redis_host}});
+const sendMailQueue = new bullQueue('sendMailQueue', { redis: { port: config_cache.cache.redis_port, host: config_cache.cache.redis_host}});
 
 
 const AppController = {
@@ -68,29 +68,29 @@ const AppController = {
               password : smtp.password
             }
           }
-          // sendMailQueue.add(mailData);   
-          // sendMailQueue.process(async function (job) {
-          //   let Query_builder            = {};
-          //   Query_builder.account_id     = account._id;
-          //   Query_builder.recipient      = job.data.to;
-          //   const is_send = await Mailer.send(job.data);
-          //   if(is_send){
-          //     Query_builder.status   = 'sent';
-          //   }else{
-          //     Query_builder.status   = 'failed';
-          //   }
-          //   await DeliverabilityInsights.service.create(Query_builder);
-          // });
-          var Query_builder            = {};
-          Query_builder.account_id     = account._id;
-          Query_builder.recipient      = to;
-          const is_send = await Mailer.send(mailData);
-          if(is_send){
-            Query_builder.status   = 'sent';
-          }else{
-            Query_builder.status   = 'failed';
-          }
-          await DeliverabilityInsights.service.create(Query_builder);
+          sendMailQueue.add(mailData);   
+          sendMailQueue.process(async function (job) {
+            let Query_builder            = {};
+            Query_builder.account_id     = account._id;
+            Query_builder.recipient      = job.data.to;
+            const is_send = await Mailer.send(job.data);
+            if(is_send){
+              Query_builder.status   = 'sent';
+            }else{
+              Query_builder.status   = 'failed';
+            }
+            await DeliverabilityInsights.service.create(Query_builder);
+          });
+          // var Query_builder            = {};
+          // Query_builder.account_id     = account._id;
+          // Query_builder.recipient      = to;
+          // const is_send = await Mailer.send(mailData);
+          // if(is_send){
+          //   Query_builder.status   = 'sent';
+          // }else{
+          //   Query_builder.status   = 'failed';
+          // }
+          // await DeliverabilityInsights.service.create(Query_builder);
           response.status(200).json({
             type : AppConstants.RESPONSE_SUCCESS,
             message:  'Email has been sent successfully',
