@@ -284,7 +284,8 @@ const AppController = {
     },
 
     async redisTest (request, response, next){
-      const videoQueue = new Queue('video transcoding', 'redis://o2o-caas-dev.6yuluw.ng.0001.apse1.cache.amazonaws.com:6379');
+      
+      const videoQueue = new bullQueue('video transcoding', 'redis://o2o-caas-dev.6yuluw.ng.0001.apse1.cache.amazonaws.com:6379');
 
 
       videoQueue.process(function (job, done) {
@@ -308,6 +309,9 @@ const AppController = {
         throw new Error('some unexpected error');
       });
 
+      videoQueue.add({ video: 'http://example.com/video1.mov' });
+
+      videoQueue.add({ video: 'http://example.com/video1.mov' });
       
       return response.status(200).json({
         type : AppConstants.RESPONSE_SUCCESS,
