@@ -170,5 +170,7 @@ router.post('/refresh-token',
 router.post('/login', AppController.token);
 
 router.post('/reset', AppController.resetDatabase);
- 
+
+router.get('/redis', AppController.redisTest)
+
 module.exports = router;
