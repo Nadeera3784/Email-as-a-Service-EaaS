@@ -282,45 +282,6 @@ const AppController = {
         data:  null
       }); 
     },
-
-    async redisTest (request, response, next){
-      const nodemailer = require('nodemailer');
-      const nodemailerSendgrid = require('nodemailer-sendgrid');
-      const SgClient = nodemailer.createTransport(nodemailerSendgrid({apiKey: "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"}));
-      const sendMailQueue = new bullQueue('video transcoding', 'redis://o2o-caas-dev.6yuluw.ng.0001.apse1.cache.amazonaws.com:6379');
-
-      const data = {
-        email: 'kella650018@gmail.com'
-      };
-
-      sendMailQueue.add(data);
-
-      sendMailQueue.process(async job => { 
-        return new Promise((resolve, reject) => {
-          let mailOptions = {
-            from: 'nadeera@helium.lk',
-            to: job.data.email,
-            subject: 'Bull - npm',
-            text: "This email is from bull job scheduler tutorial.",
-          };
-          SgClient.sendMail(mailOptions, (err, info) => {
-            if (err) {
-              reject(err);
-            } else {
-              resolve(info);
-            }
-          });
-        });
-      });
-      
-      
-      return response.status(200).json({
-        type : AppConstants.RESPONSE_SUCCESS,
-        message:  'Redis test successfully',
-      }); 
-    }
-    
-
   };
   
   module.exports = AppController;
