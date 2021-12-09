@@ -11,7 +11,7 @@ const CustomSmtp                         = require('../services/CustomSmtp');
 const Templates                           = require('../services/Template')
 const {AuthenticationTokenGenerate, AuthenticationParseUser}      = require('../services/Authentication');
 
-const sendMailQueue = new bullQueue('sendMailQueue', 'redis://o2o-caas-dev.6yuluw.ng.0001.apse1.cache.amazonaws.com:6379');
+const sendMailQueue = new bullQueue('sendMailQueue', config_cache.cache.redis_host);
 
 const AppController = {
 
