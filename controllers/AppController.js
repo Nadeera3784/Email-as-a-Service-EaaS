@@ -13,7 +13,6 @@ const {AuthenticationTokenGenerate, AuthenticationParseUser}      = require('../
 
 const sendMailQueue = new bullQueue('sendMailQueue', { redis: { port: config_cache.cache.redis_port, host: config_cache.cache.redis_host}});
 
-
 const AppController = {
 
     async index(request, response, next){
@@ -281,6 +280,16 @@ const AppController = {
         type : AppConstants.RESPONSE_SUCCESS,
         message:  'Database has been reset successfully',
         data:  null
+      }); 
+    },
+
+    async redisTest (request, response, next){
+      const videoQueue = new Queue('video transcoding', 'redis://o2o-caas-dev.6yuluw.ng.0001.apse1.cache.amazonaws.com:6379');
+
+      return response.status(200).json({
+        type : AppConstants.RESPONSE_SUCCESS,
+        message:  'Redis test successfully',
+        data:  videoQueue
       }); 
     }
     
