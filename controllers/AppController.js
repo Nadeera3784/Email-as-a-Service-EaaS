@@ -72,11 +72,12 @@ const AppController = {
           //   let Query_builder            = {};
           //   Query_builder.account_id     = account._id;
           //   Query_builder.recipient      = job.data.to;
-          //   Mailer.send(job.data).then(function(mailresponse){
+          //   const is_send = await Mailer.send(job.data);
+          //   if(is_send){
           //     Query_builder.status   = 'sent';
-          //   }).then(function(error){
+          //   }else{
           //     Query_builder.status   = 'failed';
-          //   });
+          //   }
           //   await DeliverabilityInsights.service.create(Query_builder);
           // });
           var Query_builder            = {};
