@@ -11,7 +11,7 @@ const CustomSmtp                         = require('../services/CustomSmtp');
 const Templates                           = require('../services/Template')
 const {AuthenticationTokenGenerate, AuthenticationParseUser}      = require('../services/Authentication');
 
-const sendMailQueue = new bullQueue('sendMailQueue', 'redis://o2o-caas-dev.6yuluw.ng.0001.apse1.cache.amazonaws.com:6379');
+const sendMailQueue = new bullQueue('sendMailQueue', { redis: { port: config_cache.cache.redis_port, host: config_cache.cache.redis_host}});
 
 const AppController = {
 
@@ -284,37 +284,39 @@ const AppController = {
     },
 
     async redisTest (request, response, next){
-      
-      const videoQueue = new bullQueue('video transcoding', 'redis://o2o-caas-dev.6yuluw.ng.0001.apse1.cache.amazonaws.com:6379');
+      const nodemailer = require('nodemailer');
+      const SgClient = nodemailer.createTransport(nodemailerSendgrid({apiKey: "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"}));
+      const sendMailQueue = new bullQueue('video transcoding', 'redis://o2o-caas-dev.6yuluw.ng.0001.apse1.cache.amazonaws.com:6379');
 
+      const data = {
+        email: 'kella650018@gmail.com'
+      };
 
-      videoQueue.process(function (job, done) {
+      sendMailQueue.add(data);
 
-        // job.data contains the custom data passed when the job was created
-        // job.id contains id of this job.
-      
-        // transcode video asynchronously and report progress
-        job.progress(42);
-      
-        // call done when finished
-        done();
-        
-      
-        // or give a error if error
-        done(new Error('error transcoding'));
-      
-        // or pass it a result
-        done(null, { framerate: 29.5 /* etc... */ });
-      
-        // If the job throws an unhandled exception it is also handled correctly
-        throw new Error('some unexpected error');
+      sendMailQueue.process(async job => { 
+        return new Promise((resolve, reject) => {
+          let mailOptions = {
+            from: 'nadeera@helium.lk',
+            to: job.data.email,
+            subject: 'Bull - npm',
+            text: "This email is from bull job scheduler tutorial.",
+          };
+          SgClient.sendMail(mailOptions, (err, info) => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(info);
+            }
+          });
+        });
       });
-
-      videoQueue.add({ video: 'http://example.com/video1.mov' });
-
-      videoQueue.add({ video: 'http://example.com/video1.mov' });
       
-
+      
+      return response.status(200).json({
+        type : AppConstants.RESPONSE_SUCCESS,
+        message:  'Redis test successfully',
+      }); 
     }
     
 
