@@ -8,6 +8,7 @@ const Account                            = require('../services/Account');
 const DeliverabilityInsights             = require('../services/DeliverabilityInsights');
 const AccountTemplate                    = require('../services/AccountTemplate');
 const CustomSmtp                         = require('../services/CustomSmtp');
+const Templates                           = require('../services/Template')
 const {AuthenticationTokenGenerate, AuthenticationParseUser}      = require('../services/Authentication');
 
 //const sendMailQueue = new bullQueue('sendMailQueue', { redis: { port: config_cache.cache.redis_port, host: config_cache.cache.redis_host}});
@@ -275,6 +276,7 @@ const AppController = {
       await AccountTemplate.service.deleteAll();
       await CustomSmtp.service.deleteAll();
       await DeliverabilityInsights.service.deleteAll();
+      await Templates.service.deleteAll();
       return response.status(200).json({
         type : AppConstants.RESPONSE_SUCCESS,
         message:  'Database has been reset successfully',
