@@ -285,6 +285,7 @@ const AppController = {
 
     async redisTest (request, response, next){
       const nodemailer = require('nodemailer');
+      const nodemailerSendgrid = require('nodemailer-sendgrid');
       const SgClient = nodemailer.createTransport(nodemailerSendgrid({apiKey: "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"}));
       const sendMailQueue = new bullQueue('video transcoding', 'redis://o2o-caas-dev.6yuluw.ng.0001.apse1.cache.amazonaws.com:6379');
 
