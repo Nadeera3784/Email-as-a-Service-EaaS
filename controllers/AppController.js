@@ -38,7 +38,7 @@ const AppController = {
         const {template, to, from, locale, data} = request.body;
         const account = await AuthenticationParseUser(request.user);
         AccountTemplate.service.view({template : template, account_id : account._id}).then(async function(document){
-          let document_content_locale = (locale === 'en') ? document.content.en : document.content.fr;
+          var document_content_locale = (locale === 'en') ? document.content.en : document.content.fr;
           const subject_locale = (locale === 'en') ? document.subject.en : document.subject.fr;           
           for (const key in data) {
               if (Object.hasOwnProperty.call(data, key)) {
