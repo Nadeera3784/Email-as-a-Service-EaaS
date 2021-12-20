@@ -68,7 +68,7 @@ const AppController = {
             }
           }
           sendMailQueue.add(mailData);   
-          sendMailQueue.process(async function (job) {
+          sendMailQueue.process(async function (job, done) {
             let Query_builder            = {};
             Query_builder.account_id     = account._id;
             Query_builder.recipient      = job.data.to;
@@ -79,6 +79,7 @@ const AppController = {
               Query_builder.status   = 'failed';
             }
             await DeliverabilityInsights.service.create(Query_builder);
+            done(null, to);
           });
           // var Query_builder            = {};
           // Query_builder.account_id     = account._id;
@@ -97,6 +98,7 @@ const AppController = {
           }); 
           return;
         }).catch(function(error){
+          //TODO
           console.log('email send error', error);
           response.status(400).json({
             type : AppConstants.RESPONSE_ERROR,
@@ -104,6 +106,12 @@ const AppController = {
             data: error
           });
           return;
+          // response.status(200).json({
+          //   type : AppConstants.RESPONSE_SUCCESS,
+          //   message:  'Email has been sent successfully',
+          //   data:   {}
+          // }); 
+          // return;
         });
       }
     },
