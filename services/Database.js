@@ -7,6 +7,7 @@ const databaseInitializer = async function (uri) {
     }).catch(function(error){
         console.log('Mongoose connection URI error:',  error);
     });
+    
 }
 
 
