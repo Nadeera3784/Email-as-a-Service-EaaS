@@ -11,7 +11,6 @@ const CustomSmtp                         = require('../services/CustomSmtp');
 const Templates                           = require('../services/Template')
 const {AuthenticationTokenGenerate, AuthenticationParseUser}      = require('../services/Authentication');
 
-const sendMailQueue = new bullQueue('sendMailQueue', config_cache.cache.redis_host);
 
 const AppController = {
 
@@ -67,6 +66,7 @@ const AppController = {
               password : smtp.password
             }
           }
+          const sendMailQueue = new bullQueue('sendMailQueue', config_cache.cache.redis_host);
           sendMailQueue.add(mailData);   
           sendMailQueue.process(async function (job, done) {
             let Query_builder            = {};
@@ -79,7 +79,7 @@ const AppController = {
               Query_builder.status   = 'failed';
             }
             await DeliverabilityInsights.service.create(Query_builder);
-            done(null, to);
+            done();
           });
           // var Query_builder            = {};
           // Query_builder.account_id     = account._id;
@@ -106,12 +106,6 @@ const AppController = {
             data: error
           });
           return;
-          // response.status(200).json({
-          //   type : AppConstants.RESPONSE_SUCCESS,
-          //   message:  'Email has been sent successfully',
-          //   data:   {}
-          // }); 
-          // return;
         });
       }
     },
