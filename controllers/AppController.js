@@ -1,6 +1,6 @@
 const {validationResult}                 = require('express-validator');
 const bullQueue                          = require('bull');
-
+const templateBuilder                    = require('ejs');
 const config_cache                       = require('../config/cache');
 const AppConstants                       = require('../constants/AppConstants');
 const Mailer                             = require('../services/Mailer');
@@ -38,12 +38,13 @@ const AppController = {
         const account = await AuthenticationParseUser(request.user);
         AccountTemplate.service.view({template : template, account_id : account._id}).then(async function(document){
           var document_content_locale = (locale === 'en') ? document.content.en : document.content.fr;
-          const subject_locale = (locale === 'en') ? document.subject.en : document.subject.fr;           
+          const subject_locale = (locale === 'en') ? document.subject.en : document.subject.fr;         
           for (const key in data) {
               if (Object.hasOwnProperty.call(data, key)) {
                 document_content_locale = document_content_locale.replace('{{'+key+'}}', data[key]);
               }
           }
+          //document_content_locale = templateBuilder.render(document_content_locale, {data: data});
           const options = {
             delay: 6000, 
             attempts: 2
@@ -73,6 +74,7 @@ const AppController = {
             Query_builder.account_id     = account._id;
             Query_builder.recipient      = job.data.to;
             const is_send = await Mailer.send(job.data);
+            console.log('mail send status', is_send);
             if(is_send){
               Query_builder.status   = 'sent';
             }else{
@@ -278,7 +280,7 @@ const AppController = {
       await AccountTemplate.service.deleteAll();
       await CustomSmtp.service.deleteAll();
       await DeliverabilityInsights.service.deleteAll();
-      //await Templates.service.deleteAll();
+      await Templates.service.deleteAll();
       return response.status(200).json({
         type : AppConstants.RESPONSE_SUCCESS,
         message:  'Database has been reset successfully',
