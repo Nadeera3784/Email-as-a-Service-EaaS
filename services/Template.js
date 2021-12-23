@@ -14,7 +14,7 @@ Template.view = async function(query){
     return await Template_Model.findOne(query);
 }
 
-Template.update = function(id, query){
+Template.update = async function(id, query){
 
     // await Template_Model.findByIdAndUpdate(id,{ $push: query },{upsert : false}, (err) => {
     //        if (err) {
@@ -37,7 +37,7 @@ Template.update = function(id, query){
 
     //return await Template_Model.findOneAndUpdate(id, query, { new: true });
 
-    Template_Model.findByIdAndUpdate(id, query, {new: true}, function(err, doc){
+    await Template_Model.findByIdAndUpdate(id, query, {new: true}, function(err, doc){
         if(err){
             return err;
         }else{
