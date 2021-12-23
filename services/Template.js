@@ -16,14 +16,34 @@ Template.view = async function(query){
 
 Template.update = async function(id, query){
 
-    await Template_Model.findByIdAndUpdate(id,{ $push: query },{upsert : false}, (err) => {
-           if (err) {
-              return err;
-           }
-        }
-    ).exec();
+    // await Template_Model.findByIdAndUpdate(id,{ $push: query },{upsert : false}, (err) => {
+    //        if (err) {
+    //           return err;
+    //        }
+    //     }
+    // ).exec();
 
-    //return await Template_Model.findOneAndUpdate(id, query, { new: true });
+    // Template_Model.findOneAndUpdate(
+    //     id,
+    //     query,
+    //     {upsert : true},
+    //     (err, doc)=>{
+    //         if (err) {
+    //             return err;
+    //         }else{
+    //             return doc;
+    //      } 
+    // });
+
+    return await Template_Model.findOneAndUpdate(id, query, { new: true });
+
+    // Template_Model.findByIdAndUpdate(id, query, {new: true}, function(err, doc){
+    //     if(err){
+    //         return err;
+    //     }else{
+    //         return doc;  
+    //     }
+    // });
 }
 
 Template.delete = async function(id){
