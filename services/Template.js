@@ -35,15 +35,15 @@ Template.update = function(id, query){
     //      } 
     // });
 
-    return await Template_Model.findOneAndUpdate(id, query, { new: true });
+    //return await Template_Model.findOneAndUpdate(id, query, { new: true });
 
-    // Template_Model.findByIdAndUpdate(id, query, {new: true}, function(err, doc){
-    //     if(err){
-    //         return err;
-    //     }else{
-    //         return doc;  
-    //     }
-    // });
+    Template_Model.findByIdAndUpdate(id, query, {new: true}, function(err, doc){
+        if(err){
+            return err;
+        }else{
+            return doc;  
+        }
+    });
 }
 
 Template.delete = async function(id){
