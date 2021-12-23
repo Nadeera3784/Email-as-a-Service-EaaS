@@ -82,7 +82,7 @@ const TemplateController = {
           Query_builder.subject        = subject;
           Query_builder.content        = content;
           Query_builder.variables      = variables;
-          await Template.service.update(id, Query_builder).then(function(document){
+          Template.service.update(id, Query_builder).then(function(document){
             response.status(200).json({
               type : AppConstants.RESPONSE_SUCCESS,
               message:  'Template has been updated successfully',
