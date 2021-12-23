@@ -15,7 +15,15 @@ Template.view = async function(query){
 }
 
 Template.update = async function(id, query){
-    return await Template_Model.findOneAndUpdate(id, query, { new: true });
+
+    return await Template_Model.findByIdAndUpdate(id,{ $push: query },{upsert : false}, (err) => {
+           if (err) {
+              return err;
+           }
+        }
+    ).exec();
+
+    //return await Template_Model.findOneAndUpdate(id, query, { new: true });
 }
 
 Template.delete = async function(id){
