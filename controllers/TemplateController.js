@@ -52,7 +52,7 @@ const TemplateController = {
               if(accounts){
                 for (let index = 0; index < accounts.length; index++) {
                   const foundTemplate = await AccountTemplate.service.view({account_id : accounts[index]._id, template : template});
-                  (!foundTemplate){
+                  if(!foundTemplate){
                     let Query_builder             = {};
                     Query_builder.template        = template;
                     Query_builder.account_id      = accounts[index]._id;
