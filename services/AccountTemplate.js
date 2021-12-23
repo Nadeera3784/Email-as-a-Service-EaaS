@@ -15,12 +15,14 @@ AccountTemplate.view = async function(query){
 }
 
 AccountTemplate.update = async function(id, query){
-    return await AccountTemplate_Model.findByIdAndUpdate(id,{ $push: query },{upsert : false}, (err) => {
-        if (err) {
-           return err;
+  
+    await AccountTemplate_Model.findByIdAndUpdate(id, query, {new: true}, function(err, doc){
+        if(err){
+            return err;
+        }else{
+            return doc;  
         }
-     }
-    ).exec();
+    });
     //return await AccountTemplate_Model.findOneAndUpdate(id, query, { new: true });
 }
 
