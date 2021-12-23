@@ -157,6 +157,7 @@ router.put('/me/templates/:id', AuthenticationGuard,
 ],
 AppController.updateAccountTemplates);
 
+router.delete('/me/templates/:id', AuthenticationGuard, AppController.deleteAccountTemplates);
 
 router.get('/me/deliverability-insights', AuthenticationGuard, AppController.deliverabilityInsights);
 

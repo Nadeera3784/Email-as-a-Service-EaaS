@@ -159,6 +159,25 @@ const AppController = {
       }
     },
 
+    async deleteAccountTemplates(request, response, next){
+      const id = request.params.id;
+      AccountTemplate.service.delete(id).then(function(document){
+        response.status(200).json({
+          type : AppConstants.RESPONSE_SUCCESS,
+          message:  'Template has been deleted successfully',
+          data:  document
+        });
+        return;
+      }).catch(function(error){
+        response.status(400).json({
+          type : AppConstants.RESPONSE_ERROR,
+          message:  'Something went wrong, please try again later',
+          data: error
+        });
+        return;
+      });
+    },
+
     async deliverabilityInsights(request, response, next){
       const {id} = request.user;
       const Insights = await DeliverabilityInsights.service.list({account_id : id});
