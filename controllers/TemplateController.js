@@ -1,6 +1,8 @@
 const {validationResult}  = require('express-validator');
 
 const Template            = require('../services/Template.js');
+const Account             = require('../services/Account.js');
+const AccountTemplate     = require('../services/AccountTemplate.js');
 const AppConstants        = require('../constants/AppConstants.js');
 
 const TemplateController = {
@@ -45,7 +47,23 @@ const TemplateController = {
             Query_builder.subject        = subject;
             Query_builder.content        = content;
             Query_builder.variables      = variables;
-            Template.service.create(Query_builder).then(function(document){
+            Template.service.create(Query_builder).then(async function(document){
+              const accounts = await Account.service.list();
+              if(accounts){
+                for (let index = 0; index < accounts.length; index++) {
+                  const foundTemplate = await AccountTemplate.service.view({account_id : accounts[index]._id, template : template});
+                  (!foundTemplate){
+                    let Query_builder             = {};
+                    Query_builder.template        = template;
+                    Query_builder.account_id      = accounts[index]._id;
+                    Query_builder.type            = type;
+                    Query_builder.subject         = subject;
+                    Query_builder.content         = content;
+                    Query_builder.variables       = variables;
+                    await AccountTemplate.service.create(Query_builder);
+                  }
+                }
+              }
               response.status(200).json({
                 type : AppConstants.RESPONSE_SUCCESS,
                 message:  'Template has been added successfully',
