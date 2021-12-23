@@ -14,7 +14,7 @@ Template.view = async function(query){
     return await Template_Model.findOne(query);
 }
 
-Template.update = async function(id, query){
+Template.update = function(id, query){
 
     // await Template_Model.findByIdAndUpdate(id,{ $push: query },{upsert : false}, (err) => {
     //        if (err) {
