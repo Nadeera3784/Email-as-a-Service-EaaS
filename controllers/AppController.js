@@ -123,6 +123,25 @@ const AppController = {
       });   
     },
 
+    async showAccountTemplates(request, response, next){
+      const id = request.params.id;
+      AccountTemplate.service.view({_id : id}).then(function(document){
+        return response.status(200).json({
+          type : AppConstants.RESPONSE_SUCCESS,
+          message:  'Template has been updated successfully',
+          data:  document
+        });
+
+      }).catch(function(error){
+        response.status(400).json({
+          type : AppConstants.RESPONSE_ERROR,
+          message:  'Something went wrong, please try again later',
+          data: error
+        });
+        return;
+      });
+    },
+
     async updateAccountTemplates(request, response, next){
       const errors = validationResult(request);
       if (!errors.isEmpty()) {
