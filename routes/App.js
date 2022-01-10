@@ -137,6 +137,8 @@ AppController.updateAccountDetails);
 
 router.get('/me/templates', AuthenticationGuard, AppController.accountTemplates);
 
+router.get('/me/templates/:id', AuthenticationGuard, AppController.showAccountTemplates);
+
 router.put('/me/templates/:id', AuthenticationGuard, 
 [  
   check('template')
