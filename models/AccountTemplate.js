@@ -25,8 +25,14 @@ let DocumentSchema = mongoose.Schema({
     fr: String,
   },
   variables: {
-    type: Array,
-    default: []
+    subject : {
+			type : Array,
+			default  : []
+		},
+		content : {
+			type : Array,
+			default  : []
+		}
   },
   created_at: {
     type: Date,

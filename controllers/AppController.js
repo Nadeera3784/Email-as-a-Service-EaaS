@@ -38,12 +38,19 @@ const AppController = {
         const account = await AuthenticationParseUser(request.user);
         AccountTemplate.service.view({template : template, account_id : account._id}).then(async function(document){
           var document_content_locale = (locale === 'en') ? document.content.en : document.content.fr;
-          const subject_locale = (locale === 'en') ? document.subject.en : document.subject.fr;         
-          for (const key in data) {
-              if (Object.hasOwnProperty.call(data, key)) {
-                document_content_locale = document_content_locale.replace('{{'+key+'}}', data[key]);
+          var subject_locale = (locale === 'en') ? document.subject.en : document.subject.fr;         
+          for (const key in data.content) {
+              if (Object.hasOwnProperty.call(data.content, key)) {
+                document_content_locale = document_content_locale.replace('{{'+key+'}}', data.content[key]);
               }
           }
+
+          for (const key in data.subject) {
+            if (Object.hasOwnProperty.call(data.subject, key)) {
+              subject_locale = subject_locale.replace('{{'+key+'}}', data.subject[key]);
+            }
+        }
+
           //document_content_locale = templateBuilder.render(document_content_locale, {data: data});
           const options = {
             delay: 6000, 
