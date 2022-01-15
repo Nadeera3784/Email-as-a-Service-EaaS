@@ -17,12 +17,10 @@ let DocumentSchema = mongoose.Schema({
     required: true
   },
   subject: {
-    en: String,
-    fr: String,
+    type : Array
   },
   content: {
-    en: String,
-    fr: String,
+    type : Array
   },
   variables: {
     subject : {
