@@ -1,9 +1,9 @@
 
-# O2O CASS
+# O2O CAAS
 
 # Installation
 
-O2O CASS requires 
+O2O CAAS requires 
 Node.j v14+  (https://nodejs.org/) 
 Redis (https://redis.io/download)
 MongoDB (https://www.mongodb.com/)
@@ -25,11 +25,6 @@ Setup  PM2 (https://pm2.keymetrics.io/docs/usage/quick-start/)
 ```sh
 npm install -g nodemon
 npm run dev
-```
-## Status Monitor
-
-```sh
-mydomain.com/status
 ```
 
 ## Run Test 
