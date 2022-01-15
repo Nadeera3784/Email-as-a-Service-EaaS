@@ -37,20 +37,28 @@ const AppController = {
         const {template, to, from, locale, data} = request.body;
         const account = await AuthenticationParseUser(request.user);
         AccountTemplate.service.view({template : template, account_id : account._id}).then(async function(document){
-          var document_content_locale = (locale === 'en') ? document.content.en : document.content.fr;
-          var subject_locale = (locale === 'en') ? document.subject.en : document.subject.fr;         
+          var subject_locale = "";
+          var document_content_locale = "";
+          for (let a = 0; a < document.subject.length; a++) {
+            if(document.subject[a][locale]){
+              subject_locale = document.subject[a][locale];
+            }
+          }
+          for (let b = 0; b < document.content.length; b++) {
+            if(document.content[b][locale]){
+              document_content_locale = document.content[b][locale];
+            }
+          }
           for (const key in data.content) {
               if (Object.hasOwnProperty.call(data.content, key)) {
                 document_content_locale = document_content_locale.replace('{{'+key+'}}', data.content[key]);
               }
           }
-
           for (const key in data.subject) {
             if (Object.hasOwnProperty.call(data.subject, key)) {
               subject_locale = subject_locale.replace('{{'+key+'}}', data.subject[key]);
             }
-        }
-
+          }
           //document_content_locale = templateBuilder.render(document_content_locale, {data: data});
           const options = {
             delay: 6000, 
@@ -81,7 +89,6 @@ const AppController = {
             Query_builder.account_id     = account._id;
             Query_builder.recipient      = job.data.to;
             const is_send = await Mailer.send(job.data);
-            console.log('mail send status', is_send);
             if(is_send){
               Query_builder.status   = 'sent';
             }else{
@@ -89,7 +96,7 @@ const AppController = {
             }
             await DeliverabilityInsights.service.create(Query_builder);
             done();
-          });
+          }); 
           // var Query_builder            = {};
           // Query_builder.account_id     = account._id;
           // Query_builder.recipient      = to;
