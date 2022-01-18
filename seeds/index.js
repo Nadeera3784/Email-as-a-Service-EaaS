@@ -1,4 +1,4 @@
-const { Template_Model } = require("../models/mongo");
+const { Template_Model } = require("../models");
 
 Template_Model.insertMany([
   {
