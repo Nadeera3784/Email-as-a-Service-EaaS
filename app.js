@@ -10,6 +10,7 @@ require('dotenv').config();
 
 const config_database        = require('./config/database.js');
 const config_app             = require('./config/app.js');
+//const seeds                  = require('./seeds');
 const  {databaseInitializer} = require('./services/Database.js');
 
 const {app_route}    = require('./routes');
