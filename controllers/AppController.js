@@ -167,9 +167,8 @@ const AppController = {
           return;
       }else{
         const id = request.params.id;
-        const {template, type, subject, content, variables} = request.body;
+        const {type, subject, content, variables} = request.body;
         let Query_builder            = {};
-        Query_builder.template       = template;
         Query_builder.type           = type;
         Query_builder.subject        = subject;
         Query_builder.content        = content;

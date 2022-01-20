@@ -141,9 +141,6 @@ router.get('/me/templates/:id', AuthenticationGuard, AppController.showAccountTe
 
 router.put('/me/templates/:id', AuthenticationGuard, 
 [  
-  check('template')
-  .not().isEmpty()
-  .withMessage("template is required"),
   check('type')
   .not().isEmpty()
   .withMessage("type is required"),
