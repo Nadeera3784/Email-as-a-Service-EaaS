@@ -37,11 +37,7 @@ Template.findTemplateByName = async function(name){
 }
 
 Template.search = async function(){
-    return await Template_Model.find({
-        recurring : {
-            status : true
-        }
-    });
+    return await Template_Model.find({'recurring.status' : true});
 }
 
 
