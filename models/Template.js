@@ -20,6 +20,16 @@ let DocumentSchema = mongoose.Schema({
 		type : Array
     },
 
+	recurring : {
+		status : {
+			type : Boolean,
+			default  : false
+		},
+		period : {
+			type : String
+		}
+	},
+
     variables : {
 		subject : {
 			type : Array,
