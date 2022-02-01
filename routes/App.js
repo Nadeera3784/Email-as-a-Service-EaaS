@@ -101,6 +101,8 @@ TemplateController.update);
 
 router.delete('/email-templates/:id', TemplateController.delete);
 
+router.get('/email-templates/schedule', TemplateController.search);
+
 router.post('/send-emails', AuthenticationGuard,
 [  
     check('template')

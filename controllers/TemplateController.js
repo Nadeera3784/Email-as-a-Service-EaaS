@@ -136,6 +136,30 @@ const TemplateController = {
           return;
         });
     },
+
+    async search(request, response, next){    
+      let Query_builder = {
+        recurring : {
+          status : true
+        }
+      }
+      Template.service.list(Query_builder).then(function(documents){
+        response.status(200).json({
+          type : AppConstants.RESPONSE_SUCCESS,
+          message:  'Templates has been fetched successfully',
+          data:  documents
+        });
+        return;
+      }).catch(function(error){
+        response.status(400).json({
+          type : AppConstants.RESPONSE_ERROR,
+          message:  'Something went wrong, please try again later',
+          data: error
+        });
+        return;
+      });
+    }
+
 }
 
 module.exports = TemplateController;

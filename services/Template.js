@@ -15,7 +15,6 @@ Template.view = async function(query){
 }
 
 Template.update = async function(id, query){
-
     await Template_Model.findByIdAndUpdate(id, query, {new: true}, function(err, doc){
         if(err){
             return err;
@@ -23,9 +22,6 @@ Template.update = async function(id, query){
             return doc;  
         }
     });
-
-    //return await Template_Model.findOneAndUpdate(id, query, { new: true });
-
 }
 
 Template.delete = async function(id){
