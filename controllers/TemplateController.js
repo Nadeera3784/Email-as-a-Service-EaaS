@@ -137,8 +137,9 @@ const TemplateController = {
         });
     },
 
-    async search(request, response, next){    
-      Template.service.search().then(function(documents){
+    async search(request, response, next){   
+      const {query} = request.body;
+      Template.service.list(query).then(function(documents){
         response.status(200).json({
           type : AppConstants.RESPONSE_SUCCESS,
           message:  'Templates has been fetched successfully',
