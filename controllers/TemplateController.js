@@ -138,12 +138,7 @@ const TemplateController = {
     },
 
     async search(request, response, next){    
-      let Query_builder = {
-        recurring : {
-          status : true
-        }
-      }
-      Template.service.list(Query_builder).then(function(documents){
+      Template.service.search().then(function(documents){
         response.status(200).json({
           type : AppConstants.RESPONSE_SUCCESS,
           message:  'Templates has been fetched successfully',
