@@ -22,8 +22,8 @@ DeliverabilityInsights.delete = async function(id){
     return await DeliverabilityInsights_Model.findOneAndRemove({_id: id});
 }
 
-DeliverabilityInsights.deleteAll = async function(id){
-    return await DeliverabilityInsights_Model.deleteMany({});
+DeliverabilityInsights.deleteAll = async function(query){
+    return await DeliverabilityInsights_Model.deleteMany(query);
 }
 
 

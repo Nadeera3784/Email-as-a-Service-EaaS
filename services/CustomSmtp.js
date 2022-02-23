@@ -22,8 +22,8 @@ CustomSmtp.delete = async function(id){
     return await CustomSmtp_Model.findOneAndRemove({_id: id});
 }
 
-CustomSmtp.deleteAll = async function(id){
-    return await CustomSmtp_Model.deleteMany({});
+CustomSmtp.deleteAll = async function(query){
+    return await CustomSmtp_Model.deleteMany(query);
 }
 
 

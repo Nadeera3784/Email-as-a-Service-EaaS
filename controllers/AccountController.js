@@ -3,6 +3,8 @@ const {validationResult}  = require('express-validator');
 const Account             = require('../services/Account.js');
 const Template            = require('../services/Template.js');
 const AccountTemplate     = require('../services/AccountTemplate.js');
+const CustomSmtp          = require('../services/CustomSmtp.js');
+const DeliverabilityInsights          = require('../services/DeliverabilityInsights.js');
 const AppConstants        = require('../constants/AppConstants.js');
 const {AuthenticationTokenGenerate}      = require('../services/Authentication');
 
@@ -105,7 +107,10 @@ const AccountController = {
 
     async delete(request, response, next){
         const id = request.params.id;
-        Account.service.delete(id).then(function(document){
+        Account.service.delete(id).then(async function(document){
+          await CustomSmtp.service.deleteAll({'account_id' : id});
+          await AccountTemplate.service.deleteAll({'account_id' : id});
+          await DeliverabilityInsights.service.deleteAll({'account_id' : id});
           response.status(200).json({
             type : AppConstants.RESPONSE_SUCCESS,
             message:  'Account has been deleted successfully',
