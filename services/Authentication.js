@@ -58,7 +58,7 @@ const AuthenticationTokenGenerate = async (user, response, next) => {
     jwt.sign(
         payload,
         jwt_secret,
-        {expiresIn: '7d' },
+        {expiresIn: '30d' },
         (async function (err, token){
           if (err){
             response.status(400).json({
