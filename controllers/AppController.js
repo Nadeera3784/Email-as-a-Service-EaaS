@@ -18,7 +18,7 @@ const AppController = {
       return response.status(200).json({
         type : AppConstants.RESPONSE_SUCCESS,
         message:  {
-            name    : "O2O Caas API",
+            name    : "API",
             version : 'V.1.0.0'
         }
       });
