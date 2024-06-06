@@ -35,7 +35,7 @@ describe('Account', () => {
     describe('/POST accounts', () => {
         it('it should not POST a account without email field', (done) => {
             let account = {
-                "type": "o2o-event",
+                "type": "my-event",
             };
             chai.request(server)
                 .post('/api/v1/accounts')
@@ -53,7 +53,7 @@ describe('Account', () => {
         it('it should POST a account ', (done) => {
             let account = {
                 "email": "johndoe@gmail.com",
-                "type": "o2o-event"
+                "type": "my-event"
             };
             chai.request(server)
                 .post('/api/v1/accounts')
@@ -71,7 +71,7 @@ describe('Account', () => {
         it('it should not POST a account with existing  email', (done) => {
             let account = {
                 "email": "johndoe@gmail.com",
-                "type": "o2o-event"
+                "type": "my-event"
             };
             Account.service.create(account).then(function (document) {
                 chai.request(server)
@@ -100,7 +100,7 @@ describe('Account', () => {
         it('it should GET a account by the given email', (done) => {
             let account = {
                 "email": "johndoe@gmail.com",
-                "type": "o2o-event"
+                "type": "my-event"
             };
             Account.service.create(account).then(function (document) {
                 chai.request(server)
@@ -127,7 +127,7 @@ describe('Account', () => {
         it('it should DELETE a account by the given account id', (done) => {
             let account = {
                 "email": "johndoe@gmail.com",
-                "type": "o2o-event"
+                "type": "my-event"
             };
             Account.service.create(account).then(function (document) {
                 chai.request(server)
@@ -153,12 +153,12 @@ describe('Account', () => {
         it('it should UPDATE a account given the id', (done) => {
             let account = {
                 "email": "johndoe@gmail.com",
-                "type": "o2o-event"
+                "type": "my-event"
             };
 
             let account2 = {
                 "email": "johndoexx@gmail.com",
-                "type": "o2o-event"
+                "type": "my-event"
             };
 
             Account.service.create(account).then(function (document) {
