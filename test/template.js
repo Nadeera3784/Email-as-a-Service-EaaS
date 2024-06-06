@@ -37,7 +37,7 @@ describe('Templates', () => {
     describe('/POST template', () => {
         it('it should not POST a template without template field', (done) => {
             let template = {
-                "type": "o2o-event",
+                "type": "my-event",
                 "subject": {
                     "en": "Invitation for food festival.",
                     "fr": "Invitation au festival gastronomique."
@@ -69,7 +69,7 @@ describe('Templates', () => {
         it('it should POST a template ', (done) => {
             let template = {
                 "template": "event-invitation",
-                "type": "o2o-event",
+                "type": "my-event",
                 "subject": {
                     "en": "Invitation for food festival.",
                     "fr": "Invitation au festival gastronomique."
@@ -111,7 +111,7 @@ describe('Templates', () => {
         it('it should GET a template by the given template name', (done) => {
             let template = {
                 "template": "event-invitation",
-                "type": "o2o-event",
+                "type": "my-event",
                 "subject": {
                     "en": "Invitation for food festival.",
                     "fr": "Invitation au festival gastronomique."
@@ -156,7 +156,7 @@ describe('Templates', () => {
         it('it should DELETE a template by the given template id', (done) => {
             let template = {
                 "template": "event-invitation 2",
-                "type": "o2o-event",
+                "type": "my-event",
                 "subject": {
                     "en": "Invitation for food festival.",
                     "fr": "Invitation au festival gastronomique."
@@ -196,7 +196,7 @@ describe('Templates', () => {
         it('it should UPDATE a template given the id', (done) => {
             let template = {
                 "template": "event-invitation 2",
-                "type": "o2o-event",
+                "type": "my-event",
                 "subject": {
                     "en": "Invitation for food festival.",
                     "fr": "Invitation au festival gastronomique."
@@ -215,7 +215,7 @@ describe('Templates', () => {
 
             let template2 = {
                 "template": "event-invitation",
-                "type": "o2o-event-x",
+                "type": "my-event-x",
                 "subject": {
                     "en": "Invitation for food festival.",
                     "fr": "Invitation au festival gastronomique."
